@@ -4,7 +4,7 @@ maintainer_email "psi-jack@linux-help.org"
 license          "GPLv2"
 description      "Installs/Configures ossec"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          "1.2.1"
+version          "1.2.2"
 issues_url       "http://git.linux-help.org/Linux-Help/ossec-ng/issues"
 source_url       "http://git.linux-help.org/Linux-Help/ossec-ng"
 

@@ -32,7 +32,7 @@ module OssecCore
 
   def ossec_event_location_search()
     # resolve the location search of an email_alert block to a hostname
-    node["ossec"]["email_alerts"].each do|recipient,params|
+    node["ossec"]["email_alerts"].each do |recipient, params|
       if params.has_key?('event_location_search')
         if Chef::Config[:solo]
           Chef::Log.warn('This recipe uses search. Chef Solo does not support search.')

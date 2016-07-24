@@ -39,6 +39,7 @@ Default attributes from the ossec-server role:
         'ossec@example.net',
       ],
       "email_from" => 'ossec-server@example.net',
+      "email_idsname" => 'ossec',
       "smtp_server" => 'localhost',
       "white_list" => [
         '127.0.0.1',
@@ -97,6 +98,7 @@ Default attributes from the ossec-server role:
           '/etc/mcollective/facts.yaml' => {},
           '/etc/blkid.tab' => {},
           '/etc/mtab' => {},
+          '/etc/hosts.deny' => {},
           '/etc/mail/statistics => {}',
           '/etc/random-seed' => {},
           '/etc/adjtime' => {},
