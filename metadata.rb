@@ -4,7 +4,7 @@ maintainer_email "psi-jack@linux-help.org"
 license          "GPLv2"
 description      "Installs/Configures ossec"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          "1.2.0"
+version          "1.2.1"
 issues_url       "http://git.linux-help.org/Linux-Help/ossec-ng/issues"
 source_url       "http://git.linux-help.org/Linux-Help/ossec-ng"
 
@@ -26,7 +26,7 @@ end
 
 depends 'yum-epel'
 depends 'yum-atomic', '~> 0.1.2'
-depends 'apt-atomic', '~> 0.1.2'
+depends 'apt-atomic', '~> 0.1.3'
 
 suggests 'postfix'
 suggests 'selinux_policy'
