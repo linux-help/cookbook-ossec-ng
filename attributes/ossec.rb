@@ -126,6 +126,7 @@ default["ossec"]["syscheck"]["ignore"]['/etc/openvpn/openvpn-status.log'] = {}
 default["ossec"]["syscheck"]["ignore"]['/etc/motd'] = {}
 default["ossec"]["syscheck"]["ignore"]['/etc/blkid.tab'] = {}
 default["ossec"]["syscheck"]["ignore"]['/etc/mtab'] = {}
+default["ossec"]["syscheck"]["ignore"]['/etc/hosts.deny'] = {}
 default["ossec"]["syscheck"]["ignore"]['/etc/mail/statistics'] = {}
 default["ossec"]["syscheck"]["ignore"]['/etc/random-seed'] = {}
 default["ossec"]["syscheck"]["ignore"]['/etc/adjtime'] = {}

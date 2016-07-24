@@ -98,6 +98,7 @@ Default attributes from the ossec-server role:
           '/etc/mcollective/facts.yaml' => {},
           '/etc/blkid.tab' => {},
           '/etc/mtab' => {},
+          '/etc/hosts.deny' => {},
           '/etc/mail/statistics => {}',
           '/etc/random-seed' => {},
           '/etc/adjtime' => {},
