@@ -6,6 +6,7 @@ default["ossec"]["receiver_port"] = "1514"
 default["ossec"]["log_alert_level"] = "1"
 default["ossec"]["email_alert_level"] = "7"
 default["ossec"]["email_maxperhour"] = "9999"
+default["ossec"]["email_idsname"] = "ossec"
 default["ossec"]["memory_size"] = "100000"
 default["ossec"]["remote"]["connection"] = "secure"
 default["ossec"]["agents"] = {}

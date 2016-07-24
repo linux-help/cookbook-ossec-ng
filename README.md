@@ -39,6 +39,7 @@ Default attributes from the ossec-server role:
         'ossec@example.net',
       ],
       "email_from" => 'ossec-server@example.net',
+      "email_idsname" => 'ossec',
       "smtp_server" => 'localhost',
       "white_list" => [
         '127.0.0.1',

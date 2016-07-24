@@ -6,8 +6,9 @@
     <email_to><%= recipient %></email_to>
     <% end -%>
     <smtp_server><%= node["ossec"]["smtp_server"] %></smtp_server>
-    <email_from><%= node["ossec"]["email_from"]%></email_from>
-    <email_maxperhour><%=node["ossec"]["email_maxperhour"]%></email_maxperhour>
+    <email_from><%= node["ossec"]["email_from"] %></email_from>
+    <email_maxperhour><%= node["ossec"]["email_maxperhour"] %></email_maxperhour>
+    <email_idsname><%= node["ossec"]["email_idsname"] %></email_idsname>
     <memory_size><%=node["ossec"]["memory_size"]%></memory_size>
     <% node["ossec"]["white_list"].sort_by {|k| k}.each do |ip| -%>
     <white_list><%= ip %></white_list>
@@ -93,10 +94,27 @@
      elsif params.has_key?('resolved_search')
        locations = params[:resolved_search]
      end
-     locations.sort_by {|k| k}.each do |location| -%>
+     if locations.count > 0
+       locations.sort_by {|k| k}.each do |location| -%>
   <email_alerts>
     <email_to><%= recipient %></email_to>
     <event_location><%= location %></event_location>
+<%       params.sort_by {|k,v| k}.each do |key, value|
+           unless key =~ /event_location_tag|event_location_search|resolved_search/
+             if key.eql?('tags')
+               value.sort_by {|k| k}.each do |tag| -%>
+    <<%= tag %> />
+<%             end
+             else -%>
+    <<%= key %>><%= value %></<%= key %>>
+<%           end
+           end
+         end -%>
+  </email_alerts>
+<%     end
+     else -%>
+  <email_alerts>
+    <email_to><%= recipient %></email_to>
 <%     params.sort_by {|k,v| k}.each do |key, value|
          unless key =~ /event_location_tag|event_location_search|resolved_search/
            if key.eql?('tags')
