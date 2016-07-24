@@ -2,7 +2,12 @@
 # install the ossec-hids-server package and push the
 # default configuration from the templates
 
-include_recipe "yum-atomic"
+if node['platform_family'] == "rhel"
+  include_recipe "yum-atomic"
+elsif node['platform_family'] == "debian"
+  include_recipe "apt-atomic"
+end
+
 
 class Chef::Recipe
   include OssecCore
