@@ -15,6 +15,53 @@
     <% end -%>
   </global>
 
+<% node["ossec"]["email_alerts"].sort_by {|k,v| k}.each do |recipient,params|
+     locations = []
+     if params.has_key?('event_location_tag')
+       locations = @ossec_agents.select{
+                     |n| n[:tags].include?(
+                       params[:event_location_tag]
+                     )
+                   }.map {|n2| n2.network.lanip || '172.172.172.172'}
+     elsif params.has_key?('resolved_search')
+       locations = params[:resolved_search]
+     end
+     if locations.count > 0
+       locations.sort_by {|k| k}.each do |location| -%>
+  <email_alerts>
+    <email_to><%= recipient %></email_to>
+    <event_location><%= location %></event_location>
+<%       params.sort_by {|k,v| k}.each do |key, value|
+           unless key =~ /event_location_tag|event_location_search|resolved_search/
+             if key.eql?('tags')
+               value.sort_by {|k| k}.each do |tag| -%>
+    <<%= tag %> />
+<%             end
+             else -%>
+    <<%= key %>><%= value %></<%= key %>>
+<%           end
+           end
+         end -%>
+  </email_alerts>
+<%     end
+     else -%>
+  <email_alerts>
+    <email_to><%= recipient %></email_to>
+<%     params.sort_by {|k,v| k}.each do |key, value|
+         unless key =~ /event_location_tag|event_location_search|resolved_search/
+           if key.eql?('tags')
+             value.sort_by {|k| k}.each do |tag| -%>
+    <<%= tag %> />
+<%           end
+           else -%>
+    <<%= key %>><%= value %></<%= key %>>
+<%         end
+         end
+       end -%>
+  </email_alerts>
+<%   end
+   end -%>
+
   <rules>
 <% node["ossec"]["load_rules"].each_pair do |name, value|
      if value -%>
@@ -82,53 +129,6 @@
     <email_to><%= recipient %></email_to>
     <% end -%>
   </reports>
-
-<% node["ossec"]["email_alerts"].sort_by {|k,v| k}.each do |recipient,params|
-     locations = []
-     if params.has_key?('event_location_tag')
-       locations = @ossec_agents.select{
-                     |n| n[:tags].include?(
-                       params[:event_location_tag]
-                     )
-                   }.map {|n2| n2.network.lanip || '172.172.172.172'}
-     elsif params.has_key?('resolved_search')
-       locations = params[:resolved_search]
-     end
-     if locations.count > 0
-       locations.sort_by {|k| k}.each do |location| -%>
-  <email_alerts>
-    <email_to><%= recipient %></email_to>
-    <event_location><%= location %></event_location>
-<%       params.sort_by {|k,v| k}.each do |key, value|
-           unless key =~ /event_location_tag|event_location_search|resolved_search/
-             if key.eql?('tags')
-               value.sort_by {|k| k}.each do |tag| -%>
-    <<%= tag %> />
-<%             end
-             else -%>
-    <<%= key %>><%= value %></<%= key %>>
-<%           end
-           end
-         end -%>
-  </email_alerts>
-<%     end
-     else -%>
-  <email_alerts>
-    <email_to><%= recipient %></email_to>
-<%     params.sort_by {|k,v| k}.each do |key, value|
-         unless key =~ /event_location_tag|event_location_search|resolved_search/
-           if key.eql?('tags')
-             value.sort_by {|k| k}.each do |tag| -%>
-    <<%= tag %> />
-<%           end
-           else -%>
-    <<%= key %>><%= value %></<%= key %>>
-<%         end
-         end
-       end -%>
-  </email_alerts>
-<%   end
-   end -%>
 
   <syscheck>
     <!-- Frequency that syscheck is executed -- default every 2 hours -->
